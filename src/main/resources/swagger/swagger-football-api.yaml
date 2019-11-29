@@ -1,0 +1,143 @@
+swagger: "2.0"
+info:
+  description: "This application evaluates two cricket team scores and generates the winning team using match unique id"
+  version: "1.0.0"
+  title: "Swagger API for Football"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "apiv2.apifootball.com"
+tags:
+  - name: "Football"
+    description: "Footbal League"
+    externalDocs:
+      description: "This API displays football team standing position"
+      url: "http://swagger.io"
+schemes:
+  - "https"
+  - "http"
+paths:
+  /football:
+    get:
+      tags:
+        - "Team Standing position"
+      summary: "Get Team Standing position"
+      description: ""
+      operationId: "getTeamStandingPosition"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "action"
+          in: "query"
+          type: "string"
+          description: "Action name"
+          required: true
+          enum: 
+            - get_standings
+            - get_players
+            - get_teams
+        - name: "teamName"
+          in: "query"
+          description: "Team name"
+          required: true
+          type: "string"
+        - name: "leagueName"
+          in: "query"
+          description: "League Name"
+          required: true
+          type: "string"
+        - name: "countryName"
+          in: "query"
+          description: "Country name"
+          required: true
+          type: "string"
+        - name: "leagueId"
+          in: "query"
+          description: "League"
+          required: false
+          type: "string"
+        - name: "APIkey"
+          in: "query"
+          description: "API key"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema: {
+              type: "array",
+              items: {
+                $ref: "#/definitions/StandingsTeamDetails"
+              }
+          }
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Pet not found"
+        405:
+          description: "Validation exception"
+definitions:
+  StandingsTeamDetails:
+    type: "object"
+    properties:
+      country_name:
+        type: "string"
+      league_id:
+        type: "string"
+      league_name:
+        type: "string"
+      team_id:
+        type: "string"
+      team_name:
+        type: "string"
+      overall_league_position:
+        type: "string"
+      overall_league_payed:
+        type: "string"
+      overall_league_W:
+        type: "string"
+      overall_league_D:
+        type: "string"
+      overall_league_L:
+        type: "string"
+      overall_league_GF:
+        type: "string"
+      overall_league_GA:
+        type: "string"
+      overall_league_PTS:
+        type: "string"
+      home_league_position:
+        type: "string"
+      home_league_payed:
+        type: "string"
+      home_league_W:
+        type: "string"
+      home_league_D:
+        type: "string"
+      home_league_L:
+        type: "string"
+      home_league_GF:
+        type: "string"
+      home_league_GA:
+        type: "string"
+      home_league_PTS:
+        type: "string"
+      away_league_position:
+        type: "string"
+      away_league_payed:
+        type: "string"
+      away_league_W:
+        type: "string"
+      away_league_D:
+        type: "string"
+      away_league_L:
+        type: "string"
+      away_league_GF:
+        type: "string"
+      away_league_GA:
+        type: "string"
+      away_league_PTS:
+        type: "string"
