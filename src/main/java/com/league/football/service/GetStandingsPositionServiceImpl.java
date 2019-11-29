@@ -58,15 +58,15 @@ public class GetStandingsPositionServiceImpl implements IGetStandingsPositionSer
 	private List<StandingsTeamDetails> filterOnTeamName(String countryName, String teamName) throws IOException{
 		List<StandingsTeamDetails> teamStandingsDetails = null;
 		if(countryName.equalsIgnoreCase("England")) {
-				List<StandingsTeamDetails> teamDetails =
+			teamStandingsDetails =
 					objectMapper.readValue(UtilityConstants.GET_STANDINGS_RESPONSE_ENGLAND_LEAGUE_ID_148, List.class);
-			if(null != teamName) {
-				teamStandingsDetails = teamDetails.stream()
-					.filter(p -> p.getTeamName().equalsIgnoreCase(teamName))
-					.collect(Collectors.toCollection(() -> new ArrayList<StandingsTeamDetails>()));
-			}else {
-				teamStandingsDetails = teamDetails;
-			}
+			/*
+			 * if(null != teamName) { teamStandingsDetails = new
+			 * ArrayList<StandingsTeamDetails>(); for(StandingsTeamDetails standingTeam :
+			 * teamDetails) { if(standingTeam.getTeamName().equalsIgnoreCase(teamName)) {
+			 * teamStandingsDetails.add(standingTeam); } } }else { teamStandingsDetails =
+			 * teamDetails; }
+			 */
 		}else {
 			return teamStandingsDetails;
 		}
