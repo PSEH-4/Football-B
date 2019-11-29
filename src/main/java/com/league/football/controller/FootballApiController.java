@@ -28,7 +28,6 @@ public class FootballApiController implements FootballApi {
 
     private static final Logger log = LoggerFactory.getLogger(FootballApiController.class);
 
-    private final HttpServletRequest request;
     
     @Autowired
     IGetStandingsPositionService getStandingsPositionService;
@@ -36,10 +35,6 @@ public class FootballApiController implements FootballApi {
     @Autowired
     ValidateRequestRepository validateRequestRepository;
 
-    @Autowired
-    public FootballApiController(HttpServletRequest request) {
-        this.request = request;
-    }
 
     public ResponseEntity<List<StandingsTeamDetails>> getTeamStandingPosition(
     		@NotNull @ApiParam(value = "Action name", required = true, allowableValues = "get_standings, get_players, get_teams") @Valid @RequestParam(value = "action", required = true) String action,
@@ -48,8 +43,7 @@ public class FootballApiController implements FootballApi {
     		@ApiParam(value = "Country name", required = false) @Valid @RequestParam(value = "countryName", required = false) String countryName,
     		@NotNull @ApiParam(value = "API key", required = true) @Valid @RequestParam(value = "APIkey", required = true) String apIkey,
     		@ApiParam(value = "League") @Valid @RequestParam(value = "leagueId", required = false) String leagueId) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
+
             try {
             	if(!validateRequestRepository.isRequestValid(apIkey)) 
             		return new ResponseEntity<List<StandingsTeamDetails>>(HttpStatus.NETWORK_AUTHENTICATION_REQUIRED); 
@@ -64,7 +58,6 @@ public class FootballApiController implements FootballApi {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<List<StandingsTeamDetails>>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
-        }
 
         return new ResponseEntity<List<StandingsTeamDetails>>(HttpStatus.NOT_IMPLEMENTED);
     }
